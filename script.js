@@ -1,5 +1,23 @@
 // Assignment code here
+function randomLower(){
+  var lowerLetters = "abcdefghijklmnopqrstuvwxyz";
+  return lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
+}
 
+function randomUpper(){
+  var upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return upperLetters[Math.floor(Math.random() * upperLetters.length)];
+}
+
+function randomNumber(){
+  var numbers = "0123456789";
+  return numbers[Math.floor(Math.random() * numbers.length)];
+}
+
+function randomSpecial(){
+  var specialChars = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+  return specialChars[Math.floor(Math.random() * specialChars.length)];
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");

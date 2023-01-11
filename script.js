@@ -1,4 +1,78 @@
 // Assignment code here
+function userInput(printPrompt,promptFail,checkValid){
+  do{
+    promptInput = prompt(printPrompt);
+    if(checkValid(promptInput)){
+      break;
+    }
+    else{
+      alert(promptFail);
+    }
+  }while(true);
+  return promptInput;
+}
+
+function selectCriteria(){
+  var length = userInput(
+    "Select desired length of password (length must at least be 8 characters and no more than 128 characters)",
+    "Please enter a valid length",
+    function(length){
+      return length>=8 && length<=128
+    }
+  )
+
+  var charTypeCheck = false;
+  while(charTypeCheck == false){
+
+    function yes_no_Check(charType){
+      return charType == "y" || charType == "n";
+    }
+
+    var lowercase = userInput(
+      "Do you want the password to include lowercase letters? (Reply y/n)",
+      "Please enter a valid response",
+      yes_no_Check
+    );
+    
+    var uppercase = userInput(
+      "Do you want the password to include uppercase letters? (Reply y/n)",
+      "Please enter a valid response",
+      yes_no_Check
+    )
+
+    var numeric = userInput(
+      "Do you want the password to include numeric values? (Reply y/n)",
+      "Please enter a valid response",
+      yes_no_Check
+    )
+
+    var specialChar = userInput(
+      "Do you want the password to include special characters? (Reply y/n)",
+      "Please enter a valid response",
+      yes_no_Check
+    )
+
+    if(lowercase == "y" || uppercase == "y" || numeric == "y" || specialChar == "y"){
+      charTypeCheck = true;
+    }
+    else{
+      alert("Please select at least one character type");
+    }
+  }
+
+  return [
+    {length},
+    {lowercase},
+    {uppercase},
+    {numeric},
+    {specialChar}
+  ];
+}
+
+function generatePassword(){
+  var criteria = selectCriteria();
+}
+
 function randomLower(){
   var lowerLetters = "abcdefghijklmnopqrstuvwxyz";
   return lowerLetters[Math.floor(Math.random() * lowerLetters.length)];

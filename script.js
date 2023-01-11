@@ -69,6 +69,13 @@ function selectCriteria(){
   ];
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function generatePassword(){
   var criteria = selectCriteria();
   var length = parseInt(criteria[0].length);
@@ -81,16 +88,21 @@ function generatePassword(){
     specialChar : randomSpecial
   }
 
-  var password = "";
-  for(var i=0; i<length; i+=filteredCriteria.length){
-    for(var j=0; j<filteredCriteria.length; j++){
-      charType = filteredCriteria[j];
-      password += genRandomChar[Object.keys(charType)]();
-    };
+  var password = Array(length);
+  var indeces = [...Array(length).keys()];
+  shuffleArray(indeces);
+
+  var i=0;
+  while(i<length){
+    filteredCriteria.forEach(charType =>{
+      if(i<length){
+        password[indeces[i]] = genRandomChar[Object.keys(charType)[0]]();
+        i++;
+      }
+    });
   }
 
-  password = password.substring(0,length);
-  return password;
+  return password.join('');
 }
 
 function randomLower(){

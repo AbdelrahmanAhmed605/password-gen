@@ -71,6 +71,26 @@ function selectCriteria(){
 
 function generatePassword(){
   var criteria = selectCriteria();
+  var length = parseInt(criteria[0].length);
+  var filteredCriteria = criteria.filter(charType => Object.values(charType)[0] == "y");
+  
+  var genRandomChar = {
+    lowercase : randomLower,
+    uppercase : randomUpper,
+    numeric : randomNumber,
+    specialChar : randomSpecial
+  }
+
+  var password = "";
+  for(var i=0; i<length; i+=filteredCriteria.length){
+    for(var j=0; j<filteredCriteria.length; j++){
+      charType = filteredCriteria[j];
+      password += genRandomChar[Object.keys(charType)]();
+    };
+  }
+
+  password = password.substring(0,length);
+  return password;
 }
 
 function randomLower(){
